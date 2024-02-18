@@ -1,0 +1,34 @@
+<mat-card>
+
+  <mat-toolbar color="primary">Detalhes livro</mat-toolbar>
+  <mat-card-content>
+    <form [formGroup]="form">
+
+      <mat-checkbox class="full-width" formControlName="rented">Alugado</mat-checkbox>
+
+      <mat-form-field class="half-width">
+        <input matInput placeholder="Título" formControlName="title">
+      </mat-form-field>
+
+      <mat-form-field class="half-width">
+        <input matInput placeholder="Autor" formControlName="author">
+      </mat-form-field>
+
+      <mat-form-field class="half-width">
+        <input matInput placeholder="Editora" formControlName="publisher">
+      </mat-form-field>
+
+      <mat-form-field class="half-width">
+        <input matInput placeholder="ISBN" formControlName="isbn">
+      </mat-form-field>
+
+      <mat-form-field class="half-width">
+        <input matInput type="number" placeholder="Ano de publicação" formControlName="publicationYear">
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+  <mat-card-actions class="action-button-form">
+    <button class="button-form" mat-raised-button (click)="onCancel()">Cancelar</button>
+    <button class="button-form" mat-raised-button [style.background]="'#4CAF50'" (click)="onSubmit()">Salvar</button>
+  </mat-card-actions>
+</mat-card>

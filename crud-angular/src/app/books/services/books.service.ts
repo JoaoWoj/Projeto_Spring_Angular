@@ -7,13 +7,17 @@ import { Book } from '../model/book';
 })
 export class BooksService {
 
-  private readonly API = 'api/books/findAll';
+  private readonly API = 'api/books';
 
   constructor(private httpClient: HttpClient) {
 
   }
 
   findAll() {
-    return this.httpClient.get<Book[]>(this.API);
+    return this.httpClient.get<Book[]>(this.API + '/findAll');
+  }
+
+  save(book: Book){
+    return this.httpClient.post<Book>(this.API, book);
   }
 }
