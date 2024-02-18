@@ -7,7 +7,7 @@ import { Book } from '../model/book';
 })
 export class BooksService {
 
-  private readonly API = '/assets/books.json';
+  private readonly API = 'api/books/findAll';
 
   constructor(private httpClient: HttpClient) {
 

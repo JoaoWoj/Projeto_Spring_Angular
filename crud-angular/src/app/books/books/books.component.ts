@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 export class BooksComponent implements OnInit {
 
   books$: Observable<Book[]>;
-  displayedColumns = ['title', 'author', 'publishing_company', 'year'];
+  displayedColumns = ['title', 'author', 'publisher', 'publicationYear'];
 
 
   constructor(private booksService: BooksService) {
