@@ -1,57 +1,57 @@
 <mat-card class="table-card">
   <mat-toolbar color="primary"> Livros </mat-toolbar>
 
-  <table mat-table [dataSource]="books$" class="mat-elevation-z8">
+  <mat-table  [dataSource]="books$" class="column-flex mat-elevation-z8">
 
     <!--- Note that these columns can be defined in any order.
       The actual rendered columns are set as a property on the row definition" -->
 
     <!-- Title Column -->
     <ng-container matColumnDef="title">
-      <th mat-header-cell *matHeaderCellDef> Título </th>
-      <td mat-cell *matCellDef="let book"> {{ book.title }} </td>
+      <mat-header-cell *matHeaderCellDef> Título </mat-header-cell>
+      <mat-cell *matCellDef="let book"> {{ book.title }} </mat-cell>
     </ng-container>
 
     <!-- Author Column -->
     <ng-container matColumnDef="author">
-      <th mat-header-cell *matHeaderCellDef> Autor </th>
-      <td mat-cell *matCellDef="let book"> {{ book.author }} </td>
+      <mat-header-cell *matHeaderCellDef> Autor </mat-header-cell>
+      <mat-cell *matCellDef="let book"> {{ book.author }} </mat-cell>
     </ng-container>
 
     <!-- Publisher Column -->
     <ng-container matColumnDef="publisher">
-      <th mat-header-cell *matHeaderCellDef> Editora </th>
-      <td mat-cell *matCellDef="let book"> {{ book.publisher }} </td>
+      <mat-header-cell *matHeaderCellDef> Editora </mat-header-cell>
+      <mat-cell *matCellDef="let book"> {{ book.publisher }} </mat-cell>
     </ng-container>
 
     <!-- Rented Column -->
     <ng-container matColumnDef="rented">
-      <th mat-header-cell *matHeaderCellDef [style.text-align]="'center'"> Alugado </th>
-      <td mat-cell *matCellDef="let book" [style.text-align]="'center'">
-        <mat-icon *ngIf="book.rented; else rentedIconFalse" matTooltip="Não Alugado">close</mat-icon>
+      <mat-header-cell *matHeaderCellDef class="align-column-center"> Alugado </mat-header-cell>
+      <mat-cell *matCellDef="let book" class="align-column-center">
+        <mat-icon *ngIf="book.rented; else rentedIconFalse" matTooltip="Alugado">done_outline</mat-icon>
         <ng-template #rentedIconFalse>
-          <mat-icon matTooltip="Alugado">done_outline</mat-icon>
+          <mat-icon matTooltip="Não Alugado">close</mat-icon>
         </ng-template>
-      </td>
+      </mat-cell>
     </ng-container>
 
     <!-- Actions Column -->
     <ng-container matColumnDef="action">
-      <mat-header-cell *matHeaderCellDef>
+      <mat-header-cell *matHeaderCellDef class="action-header">
         <button mat-mini-fab color="accent" aria-label="Adicionar Livro" (click)="onAdd()" matTooltip="Adicionar Livro">
           <mat-icon>add</mat-icon>
         </button>
       </mat-header-cell>
 
-      <mat-cell *matCellDef="let book">
-        <button mat-icon-button [style.color]="'#536DFE'" aria-label="Alugar Livro" matTooltip="Alugar Livro"
+      <mat-cell *matCellDef="let book" class="action-column align-column-center">
+        <button mat-icon-button [style.color]="'#FF9800'" aria-label="Devolver Livro" matTooltip="Devolver Livro"
           *ngIf="book.rented; else rentedFalse">
-          <mat-icon>done_all</mat-icon>
+          <mat-icon>undo</mat-icon>
         </button>
 
         <ng-template #rentedFalse>
-          <button mat-icon-button [style.color]="'#FF9800'" aria-label="Devolver Livro" matTooltip="Devolver Livro">
-            <mat-icon>undo</mat-icon>
+          <button mat-icon-button [style.color]="'#536DFE'" aria-label="Alugar Livro" matTooltip="Alugar Livro">
+            <mat-icon>done_all</mat-icon>
           </button>
         </ng-template>
 
@@ -70,7 +70,7 @@
       </mat-cell>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
 </mat-card>

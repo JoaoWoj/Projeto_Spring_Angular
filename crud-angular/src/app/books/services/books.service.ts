@@ -14,10 +14,10 @@ export class BooksService {
   }
 
   findAll() {
-    return this.httpClient.get<Book[]>(this.API + '/findAll');
+    return this.httpClient.get<Book[]>(this.API);
   }
 
-  save(book: Book){
+  save(book: Partial<Book>){
     return this.httpClient.post<Book>(this.API, book);
   }
 }

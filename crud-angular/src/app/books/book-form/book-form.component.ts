@@ -1,7 +1,8 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { BooksService } from '../services/books.service';
+import { NonNullableFormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { BooksService } from '../services/books.service';
 
 @Component({
   selector: 'app-book-form',
@@ -10,34 +11,40 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class BookFormComponent implements OnInit {
 
-  form: FormGroup;
+  form = this.formBuilder.group({
+    title: [''],
+    author: [''],
+    isbn: [''],
+    publisher: [''],
+    rented: [false],
+    publicationYear: [0]
+  });
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(private formBuilder: NonNullableFormBuilder,
     private service: BooksService,
-    private snackBar: MatSnackBar){
-    this.form = this.formBuilder.group({
-      title: [null],
-      author: [null],
-      isbn: [null],
-      publisher: [null],
-      rented: [false],
-      publicationYear: [null]
-    });
+    private snackBar: MatSnackBar,
+    private location: Location){
   };
 
   ngOnInit(): void {
-    // TODO document why this method 'ngOnInit' is empty
   };
 
   onSubmit(){
     this.service.save(this.form.value)
-    .subscribe(result => console.log(result), error => {
-      this.snackBar.open('Erro ao salvar livro.', '', {duration: 5000})
-    });
+    .subscribe(result => this.onSucess(), error => this.onError())
   };
 
   onCancel(){
-
+    this.location.back();
   };
+
+  private onSucess(){
+    this.snackBar.open('Livro salvo com sucesso.', '', {duration: 5000})
+    this.onCancel();
+  }
+
+  private onError(){
+    this.snackBar.open('Erro ao salvar livro.', '', {duration: 5000})
+  }
 
 }

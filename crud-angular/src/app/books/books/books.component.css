@@ -1,6 +1,27 @@
-table {
-  width: 100%;
-}
 .table-card {
   padding: 1%;
+}
+
+.column-flex {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+}
+
+.mat-table {
+  overflow: auto;
+  max-height: 600px;
+}
+
+.action-column{
+  flex: 0 0 220px;
+}
+
+.action-header{
+  flex: 0 0 220px;
+  justify-content:right;
+}
+
+.align-column-center{
+  justify-content:center;
 }

@@ -12,7 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class BooksComponent implements OnInit {
 
   books$: Observable<Book[]>;
-  displayedColumns = ['title', 'author', 'publisher', 'rented', 'action'];
+  readonly displayedColumns = ['title', 'author', 'publisher', 'rented', 'action'];
 
 
   constructor(private booksService: BooksService, private router: Router, private route: ActivatedRoute) {
