@@ -1,39 +1,133 @@
 <mat-card class="table-card">
-  <mat-toolbar color="primary"> Livros </mat-toolbar>
+  <mat-toolbar color="primary">Livros</mat-toolbar>
 
-  <table mat-table [dataSource]="books$" class="mat-elevation-z8">
+  <mat-accordion>
+
+    <mat-expansion-panel class="{{panelOpenState ? '' : 'background-color-title'}} expansion-panel" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Filtros
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-card-content>
+        <form [formGroup]="filter" class="min-width">
+          <mat-form-field class="half-width">
+            <mat-label [style.font-size]="'large'">Título</mat-label>
+            <input matInput placeholder="Título" formControlName="title" #title>
+          </mat-form-field>
+
+          <mat-form-field class="half-width">
+            <mat-label>Alugado?</mat-label>
+            <mat-select formControlName="rented" placeholder="Alugado?" #rented>
+              <mat-option value=""></mat-option>
+              <mat-option value="true">Sim</mat-option>
+              <mat-option value="false">Não</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="half-width">
+            <mat-label>Autor</mat-label>
+            <input matInput placeholder="Autor" formControlName="author" #author>
+          </mat-form-field>
+
+          <mat-form-field class="half-width">
+            <mat-label>Editora</mat-label>
+            <input matInput placeholder="Editora" formControlName="publisher" #publisher>
+          </mat-form-field>
+
+          <mat-form-field class="half-width">
+            <mat-label>ISBN</mat-label>
+            <input matInput type="number" placeholder="ISBN" formControlName="isbn" #isbn maxlength="13">
+          </mat-form-field>
+
+          <mat-form-field class="half-width">
+            <mat-label>Ano de publicação</mat-label>
+            <input matInput type="number" maxlength="4" placeholder="Ano de publicação"
+              formControlName="publicationYear" #publicationYear value="">
+          </mat-form-field>
+        </form>
+      </mat-card-content>
+      <mat-card-actions class="action-button-form">
+        <button class="button-form" mat-raised-button (click)="onRefreshFilter()" cdkFocusInitial>Limpar Filtro</button>
+        <button class="button-form" mat-raised-button (click)="onFilter()" color="primary" cdkFocusInitial>Filtrar</button>
+      </mat-card-actions>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <mat-table [dataSource]="books$" class="column-flex mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+      The actual rendered columns are set as a property on the row definition" -->
+
     <!-- Title Column -->
     <ng-container matColumnDef="title">
-      <th mat-header-cell *matHeaderCellDef> Título </th>
-      <td mat-cell *matCellDef="let book"> {{ book.title }} </td>
+      <mat-header-cell *matHeaderCellDef> Título </mat-header-cell>
+      <mat-cell *matCellDef="let book"> {{ book.title }} </mat-cell>
     </ng-container>
 
     <!-- Author Column -->
     <ng-container matColumnDef="author">
-      <th mat-header-cell *matHeaderCellDef> Autor </th>
-      <td mat-cell *matCellDef="let book"> {{ book.author }} </td>
+      <mat-header-cell *matHeaderCellDef> Autor </mat-header-cell>
+      <mat-cell *matCellDef="let book"> {{ book.author }} </mat-cell>
     </ng-container>
 
-    <!-- Publishing Company Column -->
-    <ng-container matColumnDef="publishing_company">
-      <th mat-header-cell *matHeaderCellDef> Editora </th>
-      <td mat-cell *matCellDef="let book"> {{ book.publishing_company }} </td>
+    <!-- Publisher Column -->
+    <ng-container matColumnDef="publisher">
+      <mat-header-cell *matHeaderCellDef> Editora </mat-header-cell>
+      <mat-cell *matCellDef="let book"> {{ book.publisher }} </mat-cell>
     </ng-container>
 
-    <!-- Year Column -->
-    <ng-container matColumnDef="year">
-      <th mat-header-cell *matHeaderCellDef> Ano </th>
-      <td mat-cell *matCellDef="let book"> {{ book.year }} </td>
+    <!-- Rented Column -->
+    <ng-container matColumnDef="rented">
+      <mat-header-cell *matHeaderCellDef class="align-column-center"> Alugado </mat-header-cell>
+      <mat-cell *matCellDef="let book" class="align-column-center">
+        <mat-icon *ngIf="book.rented; else rentedIconFalse" matTooltip="Alugado">done_outline</mat-icon>
+        <ng-template #rentedIconFalse>
+          <mat-icon matTooltip="Não Alugado">close</mat-icon>
+        </ng-template>
+      </mat-cell>
     </ng-container>
 
-    <!-- Edit Column -->
-    <ng-container matColumnDef="edit">
-      <td mat-cell *matCellDef="let book">
-        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home">home</mat-icon>
-      </td>
+    <!-- Actions Column -->
+    <ng-container matColumnDef="action">
+      <mat-header-cell *matHeaderCellDef class="action-header">
+        <button mat-mini-fab color="accent" aria-label="Adicionar Livro" (click)="onAdd()" matTooltip="Adicionar Livro">
+          <mat-icon>add</mat-icon>
+        </button>
+      </mat-header-cell>
+
+      <mat-cell *matCellDef="let book" class="action-column align-column-center">
+        <button mat-icon-button [style.color]="'#FF9800'" aria-label="Devolver Livro" matTooltip="Devolver Livro"
+          (click)="onRentBook(book, false)" *ngIf="book.rented; else rentedFalse">
+          <mat-icon>undo</mat-icon>
+        </button>
+
+        <ng-template #rentedFalse>
+          <button mat-icon-button [style.color]="'#536DFE'" aria-label="Alugar Livro" matTooltip="Alugar Livro"
+            (click)="onRentBook(book, true)">
+            <mat-icon>done_all</mat-icon>
+          </button>
+        </ng-template>
+
+        <button mat-icon-button [style.color]="'#4CAF50'" aria-label="Visualizar Livro" matTooltip="Visualizar Livro"
+          (click)="onView(book)">
+          <mat-icon>visibility</mat-icon>
+        </button>
+
+        <button mat-icon-button color="primary" aria-label="Editar Livro" matTooltip="Editar Livro"
+          (click)="onEdit(book)">
+          <mat-icon>edit</mat-icon>
+        </button>
+
+        <button mat-icon-button color="warn" aria-label="Excluir Livro" matTooltip="Excluir Livro"
+          (click)="onDelete(book)">
+          <mat-icon>delete</mat-icon>
+        </button>
+
+      </mat-cell>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
 </mat-card>

@@ -1,0 +1,8 @@
+<mat-dialog-content>
+  <p>{{ data }}</p>
+</mat-dialog-content>
+<mat-dialog-actions class="action-button-form">
+  <button [class]="rented ? 'notRendered' : 'rendered'" mat-raised-button color="warn" (click)="onConfirm(false)">Não</button>
+  <button [class]="rented ? 'notRendered' : 'rendered'" mat-raised-button color="primary" (click)="onConfirm(true)" cdkFocusInitial>Sim</button>
+  <button [class]="rented ? 'rendered' : 'notRendered'" mat-raised-button color="primary" (click)="onConfirm(false)" cdkFocusInitial>Ok</button>
+</mat-dialog-actions>

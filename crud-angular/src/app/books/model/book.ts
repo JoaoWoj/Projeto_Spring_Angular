@@ -1,7 +1,11 @@
 export interface Book {
   _id: number;
   title: string;
-  year: number;
   author: string;
-  publishing_company: string;
+  isbn: string;
+  publisher: string;
+  rented: boolean;
+  registration_date: Date;
+  rent_date: Date;
+  publicationYear: number;
 }
