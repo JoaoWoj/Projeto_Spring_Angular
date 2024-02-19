@@ -19,9 +19,9 @@ mat-card{
 }
 
 .action-button-form{
-  margin-left: 83%;
+  justify-content: right;
 }
 
 .button-form{
-  margin: 2%;
+  margin: 10px;
 }

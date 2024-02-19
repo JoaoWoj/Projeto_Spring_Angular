@@ -1,0 +1,7 @@
+<mat-dialog-content>
+  <p>{{ data }}</p>
+</mat-dialog-content>
+<mat-dialog-actions [style.justify-content]="'right'">
+  <button mat-raised-button color="warn" (click)="onConfirm(false)">Não</button>
+  <button mat-raised-button color="primary" (click)="onConfirm(true)" cdkFocusInitial>Sim</button>
+</mat-dialog-actions>

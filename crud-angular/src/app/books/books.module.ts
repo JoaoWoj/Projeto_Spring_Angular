@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -15,11 +16,13 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { BookFormComponent } from './book-form/book-form.component';
 import { BooksRoutingModule } from './books-routing.module';
 import { BooksComponent } from './books/books.component';
+import { ConfirmationDialogComponent } from './shared/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
     BooksComponent,
-    BookFormComponent
+    BookFormComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     CommonModule,
@@ -34,7 +37,8 @@ import { BooksComponent } from './books/books.component';
     MatInputModule,
     MatCheckboxModule,
     MatSnackBarModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatDialogModule
   ]
 })
 export class BooksModule { }

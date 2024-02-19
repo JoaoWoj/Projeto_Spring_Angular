@@ -37,4 +37,8 @@ export class BooksService {
     return this.httpClient.put<Book>(`${this.API}/${book._id}`, book);
   }
 
+  delete(id: number){
+    return this.httpClient.delete(`${this.API}/${id}`);
+  }
+
 }
