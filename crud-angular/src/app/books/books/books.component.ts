@@ -38,12 +38,22 @@ export class BooksComponent implements OnInit {
     this.router.navigate(['new'], {relativeTo: this.route});
   }
 
-  onReturnBook(book: Book){
+  onRentBook(book: Book, rented: boolean){
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: `Tem certeza que deseja ${rented ? 'alugar' : 'devolver'}  esse livro?`,
+    });
 
-  }
-
-  onRentBook(book: Book){
-
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if(result){
+        this.booksService.rentBook(book._id, rented).subscribe(
+          () => {
+            this.refresh();
+            this.snackBar.open(`Livro ${rented ? 'alugado' : 'devolvido'} com sucesso.`, 'X', {duration: 5000, verticalPosition:'top', horizontalPosition: 'center'})
+          },
+          () => this.snackBar.open(`Erro ao ${rented ? 'alugar' : 'devolver'} livro.`, '', {duration: 5000})
+        );
+      }
+    });
   }
 
   onView(book: Book){
@@ -57,7 +67,7 @@ export class BooksComponent implements OnInit {
   onDelete(book: Book){
 
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      data: 'Tem certeza que deseja remover esse curso?',
+      data: 'Tem certeza que deseja remover esse livro?',
     });
 
     dialogRef.afterClosed().subscribe((result: boolean) => {

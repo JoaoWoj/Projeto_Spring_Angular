@@ -41,4 +41,8 @@ export class BooksService {
     return this.httpClient.delete(`${this.API}/${id}`);
   }
 
+  rentBook(id:number, rented:boolean){
+    return this.httpClient.patch(`${this.API}/${id}`, rented);
+  }
+
 }
