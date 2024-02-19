@@ -7,23 +7,41 @@
       <mat-checkbox class="full-width" formControlName="rented" [disabled]="true">Alugado</mat-checkbox>
 
       <mat-form-field class="half-width">
-        <input matInput placeholder="Título" formControlName="title">
+        <input matInput placeholder="Título" formControlName="title" #title>
+        <mat-hint align="end">{{title.value.length}}/200</mat-hint>
+        @if (form.get('title')?.invalid) {
+          <mat-error>{{getErrorMessage("title")}}</mat-error>
+        }
       </mat-form-field>
 
       <mat-form-field class="half-width">
-        <input matInput placeholder="Autor" formControlName="author">
+        <input matInput placeholder="Autor" formControlName="author" #author>
+        <mat-hint align="end">{{author.value.length}}/200</mat-hint>
+        @if (form.get('author')?.invalid) {
+          <mat-error>{{getErrorMessage("author")}}</mat-error>
+        }
       </mat-form-field>
 
       <mat-form-field class="half-width">
-        <input matInput placeholder="Editora" formControlName="publisher">
+        <input matInput placeholder="Editora" formControlName="publisher" #publisher>
+        <mat-hint align="end">{{publisher.value.length}}/200</mat-hint>
+        @if (form.get('publisher')?.invalid) {
+          <mat-error>{{getErrorMessage("publisher")}}</mat-error>
+        }
       </mat-form-field>
 
       <mat-form-field class="half-width">
-        <input matInput placeholder="ISBN" formControlName="isbn">
+        <input matInput type="number" placeholder="ISBN" formControlName="isbn" #isbn>
+        <mat-hint align="end">{{isbn.value.length}}/13</mat-hint>
+        <mat-error *ngIf="form.get('isbn')?.invalid">{{ getErrorMessageIsbn()}}</mat-error>
       </mat-form-field>
 
       <mat-form-field class="half-width">
-        <input matInput type="number" placeholder="Ano de publicação" formControlName="publicationYear">
+        <input matInput type="number" placeholder="Ano de publicação" formControlName="publicationYear" #publicationYear>
+        <mat-hint align="end">{{publicationYear.value.length}}/4</mat-hint>
+        @if (form.get('publicationYear')?.invalid) {
+          <mat-error>{{getErrorMessage("publicationYear")}}</mat-error>
+        }
       </mat-form-field>
     </form>
   </mat-card-content>
