@@ -2,7 +2,6 @@ package com.joao;
 
 import java.util.Date;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,31 +24,26 @@ public class CrudSpringApplication {
 		return args-> {
 			bookRepository.deleteAll();
 			Book book = new Book();
-			book.setTitle("Teste");
-			book.setAuthor("Pedro");
+			book.setTitle("O homem mais rico da babilôia");
+			book.setAuthor("George S. Clason");
 			book.setRegistration_date(new Date());
-			book.setIsbn("12552362121");
-			book.setPublisher("Intrinseca");
+			book.setIsbn("9788595081536");
+			book.setPublisher("Haper Collins Brasil");
 			book.setRent_date(null);
 			book.setRented(false);
-			book.setPublicationYear(2024);
+			book.setPublicationYear(2021);
 			bookRepository.save(book);
 			Book book2 = new Book();
-			book2.setTitle("Teste");
-			book2.setAuthor("Pedro");
+			book2.setTitle("Eu, Robô");
+			book2.setAuthor("Isaac Asimov");
 			book2.setRegistration_date(new Date());
-			book2.setIsbn("12552362121");
-			book2.setPublisher("Intrinseca");
+			book2.setIsbn("9788576572008");
+			book2.setPublisher("Aleph");
 			book2.setRent_date(new Date());
 			book2.setRented(true);
-			book2.setPublicationYear(2024);
+			book2.setPublicationYear(2014);
 			bookRepository.save(book2);
 		};
-	}
-
-    @Bean
-    ModelMapper modelMapper() {
-		return new ModelMapper();
 	}
 
 }
