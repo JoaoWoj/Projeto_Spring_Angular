@@ -26,25 +26,47 @@
 
     <!-- Rented Column -->
     <ng-container matColumnDef="rented">
-      <th mat-header-cell *matHeaderCellDef> Alugado </th>
-      <td mat-cell *matCellDef="let book"> {{ book.rented }} </td>
+      <th mat-header-cell *matHeaderCellDef [style.text-align]="'center'"> Alugado </th>
+      <td mat-cell *matCellDef="let book" [style.text-align]="'center'">
+        <mat-icon *ngIf="book.rented; else rentedIconFalse" matTooltip="Não Alugado">close</mat-icon>
+        <ng-template #rentedIconFalse>
+          <mat-icon matTooltip="Alugado">done_outline</mat-icon>
+        </ng-template>
+      </td>
     </ng-container>
 
     <!-- Actions Column -->
     <ng-container matColumnDef="action">
       <mat-header-cell *matHeaderCellDef>
-        <button mat-mini-fab color="accent" aria-label="Adicionar Livro" (click)="onAdd()">
+        <button mat-mini-fab color="accent" aria-label="Adicionar Livro" (click)="onAdd()" matTooltip="Adicionar Livro">
           <mat-icon>add</mat-icon>
         </button>
       </mat-header-cell>
+
       <mat-cell *matCellDef="let book">
-        <button mat-icon-button color="primary" aria-label="Editar Livro">
+        <button mat-icon-button [style.color]="'#536DFE'" aria-label="Alugar Livro" matTooltip="Alugar Livro"
+          *ngIf="book.rented; else rentedFalse">
+          <mat-icon>done_all</mat-icon>
+        </button>
+
+        <ng-template #rentedFalse>
+          <button mat-icon-button [style.color]="'#FF9800'" aria-label="Devolver Livro" matTooltip="Devolver Livro">
+            <mat-icon>undo</mat-icon>
+          </button>
+        </ng-template>
+
+        <button mat-icon-button [style.color]="'#4CAF50'" aria-label="Visualizar Livro" matTooltip="Visualizar Livro">
+          <mat-icon>visibility</mat-icon>
+        </button>
+
+        <button mat-icon-button color="primary" aria-label="Editar Livro" matTooltip="Editar Livro">
           <mat-icon>edit</mat-icon>
         </button>
 
-        <button mat-icon-button color="warn" aria-label="Remover Livro">
+        <button mat-icon-button color="warn" aria-label="Excluir Livro" matTooltip="Excluir Livro">
           <mat-icon>delete</mat-icon>
         </button>
+
       </mat-cell>
     </ng-container>
 

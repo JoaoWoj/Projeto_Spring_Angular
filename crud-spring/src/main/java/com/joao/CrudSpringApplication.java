@@ -31,6 +31,16 @@ public class CrudSpringApplication {
 			book.setRented(false);
 			book.setPublicationYear(2024);
 			bookRepository.save(book);
+			Book book2 = new Book();
+			book2.setTitle("Teste");
+			book2.setAuthor("Pedro");
+			book2.setRegistration_date(new Date());
+			book2.setIsbn("125.523.621");
+			book2.setPublisher("Intrinseca");
+			book2.setRent_date(null);
+			book2.setRented(true);
+			book2.setPublicationYear(2024);
+			bookRepository.save(book2);
 		};
 	}
 

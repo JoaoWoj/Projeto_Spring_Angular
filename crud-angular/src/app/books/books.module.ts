@@ -11,10 +11,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { BookFormComponent } from './book-form/book-form.component';
 import { BooksRoutingModule } from './books-routing.module';
 import { BooksComponent } from './books/books.component';
-
 
 @NgModule({
   declarations: [
@@ -33,7 +33,8 @@ import { BooksComponent } from './books/books.component';
     MatFormFieldModule,
     MatInputModule,
     MatCheckboxModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTooltipModule
   ]
 })
 export class BooksModule { }

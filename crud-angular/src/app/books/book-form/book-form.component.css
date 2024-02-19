@@ -6,6 +6,7 @@
 .full-width {
   width: 98%;
   padding: 1%;
+  /*pointer-events: none;*/
 }
 
 mat-card{

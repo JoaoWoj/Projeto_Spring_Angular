@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.joao.model.Book;
 import com.joao.repository.BookRepository;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @RestController
 @RequestMapping("/api/books")
@@ -21,5 +24,11 @@ public class BooksController {
 	public List<Book> findAll(){
 		return bookRepository.findAll();
 	}
+	
+	@PostMapping("path")
+	public String save(@RequestBody String entity) {
+		return entity;
+	}
+	
 
 }
