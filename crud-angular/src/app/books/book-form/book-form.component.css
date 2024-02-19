@@ -6,7 +6,10 @@
 .full-width {
   width: 98%;
   padding: 1%;
-  /*pointer-events: none;*/
+}
+
+.disabled {
+  pointer-events: none;
 }
 
 mat-card{
@@ -24,4 +27,12 @@ mat-card{
 
 .button-form{
   margin: 10px;
+}
+
+.notRendered{
+  display: none;
+}
+
+.rendered{
+  display: flex;
 }

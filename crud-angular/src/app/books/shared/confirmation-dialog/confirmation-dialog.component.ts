@@ -8,13 +8,17 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class ConfirmationDialogComponent implements OnInit {
 
+  rented= false;
+
   constructor(
     public dialogRef: MatDialogRef<ConfirmationDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: string,
   ) {}
 
   ngOnInit(): void {
-
+    if(this.data.match('Não é possível')){
+      this.rented = true;
+    }
   }
 
   onConfirm(result: boolean): void {

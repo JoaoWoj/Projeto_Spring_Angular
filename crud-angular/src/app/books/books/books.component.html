@@ -1,7 +1,60 @@
 <mat-card class="table-card">
-  <mat-toolbar color="primary"> Livros </mat-toolbar>
+  <mat-toolbar color="primary">Livros</mat-toolbar>
 
-  <mat-table  [dataSource]="books$" class="column-flex mat-elevation-z8">
+  <mat-accordion>
+
+    <mat-expansion-panel class="{{panelOpenState ? '' : 'background-color-title'}} expansion-panel" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Filtros
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-card-content>
+        <form [formGroup]="filter" class="min-width">
+          <mat-form-field class="half-width">
+            <mat-label [style.font-size]="'large'">Título</mat-label>
+            <input matInput placeholder="Título" formControlName="title" #title>
+          </mat-form-field>
+
+          <mat-form-field class="half-width">
+            <mat-label>Alugado?</mat-label>
+            <mat-select formControlName="rented" placeholder="Alugado?" #rented>
+              <mat-option value=""></mat-option>
+              <mat-option value="true">Sim</mat-option>
+              <mat-option value="false">Não</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="half-width">
+            <mat-label>Autor</mat-label>
+            <input matInput placeholder="Autor" formControlName="author" #author>
+          </mat-form-field>
+
+          <mat-form-field class="half-width">
+            <mat-label>Editora</mat-label>
+            <input matInput placeholder="Editora" formControlName="publisher" #publisher>
+          </mat-form-field>
+
+          <mat-form-field class="half-width">
+            <mat-label>ISBN</mat-label>
+            <input matInput type="number" placeholder="ISBN" formControlName="isbn" #isbn maxlength="13">
+          </mat-form-field>
+
+          <mat-form-field class="half-width">
+            <mat-label>Ano de publicação</mat-label>
+            <input matInput type="number" maxlength="4" placeholder="Ano de publicação"
+              formControlName="publicationYear" #publicationYear value="">
+          </mat-form-field>
+        </form>
+      </mat-card-content>
+      <mat-card-actions class="action-button-form">
+        <button class="button-form" mat-raised-button (click)="onRefreshFilter()" cdkFocusInitial>Limpar Filtro</button>
+        <button class="button-form" mat-raised-button (click)="onFilter()" color="primary" cdkFocusInitial>Filtrar</button>
+      </mat-card-actions>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <mat-table [dataSource]="books$" class="column-flex mat-elevation-z8">
 
     <!--- Note that these columns can be defined in any order.
       The actual rendered columns are set as a property on the row definition" -->
@@ -44,26 +97,30 @@
       </mat-header-cell>
 
       <mat-cell *matCellDef="let book" class="action-column align-column-center">
-        <button mat-icon-button [style.color]="'#FF9800'" aria-label="Devolver Livro" matTooltip="Devolver Livro" (click)="onRentBook(book, false)"
-          *ngIf="book.rented; else rentedFalse">
+        <button mat-icon-button [style.color]="'#FF9800'" aria-label="Devolver Livro" matTooltip="Devolver Livro"
+          (click)="onRentBook(book, false)" *ngIf="book.rented; else rentedFalse">
           <mat-icon>undo</mat-icon>
         </button>
 
         <ng-template #rentedFalse>
-          <button mat-icon-button [style.color]="'#536DFE'" aria-label="Alugar Livro" matTooltip="Alugar Livro" (click)="onRentBook(book, true)">
+          <button mat-icon-button [style.color]="'#536DFE'" aria-label="Alugar Livro" matTooltip="Alugar Livro"
+            (click)="onRentBook(book, true)">
             <mat-icon>done_all</mat-icon>
           </button>
         </ng-template>
 
-        <button mat-icon-button [style.color]="'#4CAF50'" aria-label="Visualizar Livro" matTooltip="Visualizar Livro" (click)="onView(book)">
+        <button mat-icon-button [style.color]="'#4CAF50'" aria-label="Visualizar Livro" matTooltip="Visualizar Livro"
+          (click)="onView(book)">
           <mat-icon>visibility</mat-icon>
         </button>
 
-        <button mat-icon-button color="primary" aria-label="Editar Livro" matTooltip="Editar Livro" (click)="onEdit(book)">
+        <button mat-icon-button color="primary" aria-label="Editar Livro" matTooltip="Editar Livro"
+          (click)="onEdit(book)">
           <mat-icon>edit</mat-icon>
         </button>
 
-        <button mat-icon-button color="warn" aria-label="Excluir Livro" matTooltip="Excluir Livro" (click)="onDelete(book)">
+        <button mat-icon-button color="warn" aria-label="Excluir Livro" matTooltip="Excluir Livro"
+          (click)="onDelete(book)">
           <mat-icon>delete</mat-icon>
         </button>
 

@@ -12,16 +12,20 @@ import { Book } from '../model/book';
   styleUrl: './book-form.component.css',
 })
 export class BookFormComponent implements OnInit {
+  currentRoute = '';
   form = this.formBuilder.group({
     _id: 0,
-    title: ['', Validators.required, Validators.maxLength(200)],
-    author: ['', Validators.required, Validators.maxLength(200)],
-    isbn: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(20)]],
-    publisher: ['', Validators.required, Validators.maxLength(200)],
+    title: ['', [Validators.required, Validators.maxLength(200)]],
+    author: ['', [Validators.required, Validators.maxLength(200)]],
+    isbn: [
+      '',
+      [Validators.required, Validators.minLength(10), Validators.maxLength(20)],
+    ],
+    publisher: ['', [Validators.required, Validators.maxLength(200)]],
     rented: [false],
     publicationYear: [
       0,
-      [Validators.required, Validators.min(1000), Validators.max(9999)],
+      [Validators.required, Validators.min(1), Validators.max(9999)],
     ],
   });
 
@@ -35,6 +39,7 @@ export class BookFormComponent implements OnInit {
 
   ngOnInit(): void {
     const book: Book = this.route.snapshot.data['book'];
+    this.currentRoute = this.route.snapshot.url[0].path;
     this.form.setValue({
       _id: book._id,
       title: book.title,
@@ -60,7 +65,7 @@ export class BookFormComponent implements OnInit {
     }
 
     if (field?.hasError('min')) {
-      return 'O ano de publicação deve ser a partir do ano 1000.';
+      return 'O ano de publicação deve ser a partir do ano 1.';
     }
 
     if (field?.hasError('max')) {
@@ -82,10 +87,22 @@ export class BookFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.service.save(this.form.value).subscribe(
-      (result) => this.onSucess(),
-      (error) => this.onError()
-    );
+    const { author, isbn, publicationYear, publisher, title } = this.form.value;
+
+    if (!author || !isbn || !publicationYear || !publisher || !title) {
+      this.snackBar.open('Não é possível salvar livro com dados vazios.', 'X', {
+        duration: 5000,
+      });
+    } else if (isNaN(Number(isbn))) {
+      this.snackBar.open('ISBN deve conter apenas números.', 'X', {
+        duration: 5000,
+      });
+    } else {
+      this.service.save(this.form.value).subscribe(
+        () => this.onSucess(),
+        () => this.onError()
+      );
+    }
   }
 
   onCancel() {

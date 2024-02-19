@@ -25,3 +25,20 @@
 .align-column-center{
   justify-content:center;
 }
+
+.action-button-form{
+  justify-content:right;
+}
+
+.half-width {
+  width: 48%;
+  padding: 1%;
+}
+
+.expansion-panel{
+  padding: 1%;
+}
+
+.background-color-title{
+  background: #9E9E9E;
+}

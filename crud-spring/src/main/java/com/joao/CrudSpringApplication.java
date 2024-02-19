@@ -25,7 +25,7 @@ public class CrudSpringApplication {
 			book.setTitle("Teste");
 			book.setAuthor("Pedro");
 			book.setRegistration_date(new Date());
-			book.setIsbn("125.523.621");
+			book.setIsbn("12552362121");
 			book.setPublisher("Intrinseca");
 			book.setRent_date(null);
 			book.setRented(false);
@@ -35,7 +35,7 @@ public class CrudSpringApplication {
 			book2.setTitle("Teste");
 			book2.setAuthor("Pedro");
 			book2.setRegistration_date(new Date());
-			book2.setIsbn("125.523.621");
+			book2.setIsbn("12552362121");
 			book2.setPublisher("Intrinseca");
 			book2.setRent_date(new Date());
 			book2.setRented(true);

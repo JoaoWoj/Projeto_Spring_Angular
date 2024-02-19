@@ -1,0 +1,11 @@
+.notRendered{
+  display: none;
+}
+
+.rendered{
+  display: flex;
+}
+
+.action-button-form{
+  justify-content: right;
+}

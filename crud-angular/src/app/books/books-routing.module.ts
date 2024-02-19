@@ -7,7 +7,8 @@ import { BookResolver } from './guards/book.resolver';
 const routes: Routes = [
   {path: '', component: BooksComponent},
   {path: 'new', component: BookFormComponent, resolve:{book: BookResolver}},
-  {path: 'edit/:id', component: BookFormComponent, resolve:{book: BookResolver}}
+  {path: 'edit/:id', component: BookFormComponent, resolve:{book: BookResolver}},
+  {path: 'view/:id', component: BookFormComponent, resolve:{book: BookResolver}}
 ];
 
 @NgModule({
