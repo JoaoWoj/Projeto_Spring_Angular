@@ -20,10 +20,31 @@ export class BooksComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // TODO document why this method 'ngOnInit' is empty
   }
 
   onAdd(){
     this.router.navigate(['new'], {relativeTo: this.route});
+  }
+
+  onReturn(book: Book){
+
+  }
+
+  onRent(book: Book){
+
+  }
+
+  onView(book: Book){
+
+  }
+
+  onEdit(book: Book){
+    this.router.navigate(['edit', book._id], {relativeTo: this.route});
+  }
+
+  onDelete(book: Book){
+
   }
 
 }

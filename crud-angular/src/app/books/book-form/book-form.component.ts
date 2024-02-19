@@ -2,7 +2,9 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { NonNullableFormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute } from '@angular/router';
 import { BooksService } from '../services/books.service';
+import { Book } from '../model/book';
 
 @Component({
   selector: 'app-book-form',
@@ -12,6 +14,7 @@ import { BooksService } from '../services/books.service';
 export class BookFormComponent implements OnInit {
 
   form = this.formBuilder.group({
+    _id: 0,
     title: [''],
     author: [''],
     isbn: [''],
@@ -23,10 +26,21 @@ export class BookFormComponent implements OnInit {
   constructor(private formBuilder: NonNullableFormBuilder,
     private service: BooksService,
     private snackBar: MatSnackBar,
-    private location: Location){
+    private location: Location,
+    private route: ActivatedRoute){
   };
 
   ngOnInit(): void {
+    const book: Book = this.route.snapshot.data['book'];
+    this.form.setValue({
+      _id:book._id,
+      title:book.title,
+      author: book.author,
+      isbn: book.isbn,
+      publisher: book.publisher,
+      rented: book.rented,
+      publicationYear: book.publicationYear
+    });
   };
 
   onSubmit(){

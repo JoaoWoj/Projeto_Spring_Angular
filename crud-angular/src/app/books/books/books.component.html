@@ -44,26 +44,26 @@
       </mat-header-cell>
 
       <mat-cell *matCellDef="let book" class="action-column align-column-center">
-        <button mat-icon-button [style.color]="'#FF9800'" aria-label="Devolver Livro" matTooltip="Devolver Livro"
+        <button mat-icon-button [style.color]="'#FF9800'" aria-label="Devolver Livro" matTooltip="Devolver Livro" (click)="onReturn(book)"
           *ngIf="book.rented; else rentedFalse">
           <mat-icon>undo</mat-icon>
         </button>
 
         <ng-template #rentedFalse>
-          <button mat-icon-button [style.color]="'#536DFE'" aria-label="Alugar Livro" matTooltip="Alugar Livro">
+          <button mat-icon-button [style.color]="'#536DFE'" aria-label="Alugar Livro" matTooltip="Alugar Livro" (click)="onRent(book)">
             <mat-icon>done_all</mat-icon>
           </button>
         </ng-template>
 
-        <button mat-icon-button [style.color]="'#4CAF50'" aria-label="Visualizar Livro" matTooltip="Visualizar Livro">
+        <button mat-icon-button [style.color]="'#4CAF50'" aria-label="Visualizar Livro" matTooltip="Visualizar Livro" (click)="onView(book)">
           <mat-icon>visibility</mat-icon>
         </button>
 
-        <button mat-icon-button color="primary" aria-label="Editar Livro" matTooltip="Editar Livro">
+        <button mat-icon-button color="primary" aria-label="Editar Livro" matTooltip="Editar Livro" (click)="onEdit(book)">
           <mat-icon>edit</mat-icon>
         </button>
 
-        <button mat-icon-button color="warn" aria-label="Excluir Livro" matTooltip="Excluir Livro">
+        <button mat-icon-button color="warn" aria-label="Excluir Livro" matTooltip="Excluir Livro" (click)="onDelete(book)">
           <mat-icon>delete</mat-icon>
         </button>
 

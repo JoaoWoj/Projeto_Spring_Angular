@@ -17,7 +17,24 @@ export class BooksService {
     return this.httpClient.get<Book[]>(this.API);
   }
 
-  save(book: Partial<Book>){
-    return this.httpClient.post<Book>(this.API, book);
+  findById(id: number){
+    return this.httpClient.get<Book>(`${this.API}/${id}`);
   }
+
+  save(book: Partial<Book>){
+    if(book._id){
+      return this.update(book);
+    }
+    return this.create(book);
+  }
+
+  private create(book: Partial<Book>){
+    return this.httpClient.post<Book>(this.API, book);
+
+  }
+
+  private update(book: Partial<Book>){
+    return this.httpClient.put<Book>(`${this.API}/${book._id}`, book);
+  }
+
 }
