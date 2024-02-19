@@ -145,12 +145,10 @@ export class BooksComponent implements OnInit {
     } else {
       rentedBoolean = undefined; // Define como undefined se o valor de rented for vazio
     }
-    console.log(this.filter.value);
     this.refresh();
     this.books$ = this.books$.pipe(
       map(books => {
         return books.filter(book => {
-          console.log(book);
           return (!author || book.author.toLowerCase() === author.toLowerCase()) &&
                  (!isbn || book.isbn.toLowerCase() === isbn.toLowerCase()) &&
                  (!publicationYear || book.publicationYear === publicationYear) &&

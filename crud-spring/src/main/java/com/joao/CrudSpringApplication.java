@@ -2,15 +2,18 @@ package com.joao;
 
 import java.util.Date;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 
 import com.joao.model.Book;
 import com.joao.repository.BookRepository;
 
 @SpringBootApplication
+@ComponentScan({ "com.joao.*" })
 public class CrudSpringApplication {
 
 	public static void main(String[] args) {
@@ -42,6 +45,11 @@ public class CrudSpringApplication {
 			book2.setPublicationYear(2024);
 			bookRepository.save(book2);
 		};
+	}
+
+    @Bean
+    ModelMapper modelMapper() {
+		return new ModelMapper();
 	}
 
 }

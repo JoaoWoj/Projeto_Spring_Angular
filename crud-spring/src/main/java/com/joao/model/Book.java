@@ -3,6 +3,8 @@ package com.joao.model;
 import java.util.Date;
 import java.util.Objects;
 
+import org.hibernate.validator.constraints.Length;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
@@ -10,6 +12,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Book {
@@ -19,15 +23,27 @@ public class Book {
 	@JsonProperty("_id")
 	private Long id;
 	
+	@NotBlank
+	@NotNull
+	@Length(max=200)
 	@Column(length = 200, nullable = false)
 	private String title;
 	
+	@NotBlank
+	@NotNull
+	@Length(max=200)
 	@Column(length = 200, nullable = false)
 	private String author;
 	
+	@NotBlank
+	@NotNull
+	@Length(min=10, max=13)
 	@Column(length = 20, nullable = false)
 	private String isbn;
 	
+	@NotBlank
+	@NotNull
+	@Length(max=200)
 	@Column(length = 200, nullable = false)
 	private String publisher;
 	
