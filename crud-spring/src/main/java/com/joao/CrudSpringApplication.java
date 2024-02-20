@@ -7,9 +7,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.joao.model.Book;
+import com.joao.model.User;
+import com.joao.model.enumerators.UserRoleEnum;
 import com.joao.repository.BookRepository;
+import com.joao.repository.UserRepository;
 
 @SpringBootApplication
 @ComponentScan({ "com.joao.*" })
@@ -20,7 +24,7 @@ public class CrudSpringApplication {
 	}
 	
 	@Bean
-	CommandLineRunner initDatabase(BookRepository bookRepository) {
+	CommandLineRunner initDatabase(BookRepository bookRepository, UserRepository userRepository) {
 		return args-> {
 			bookRepository.deleteAll();
 			Book book = new Book();
@@ -43,6 +47,13 @@ public class CrudSpringApplication {
 			book2.setRented(true);
 			book2.setPublicationYear(2014);
 			bookRepository.save(book2);
+			
+			userRepository.deleteAll();
+			User user = new User("admin", "admin", UserRoleEnum.ADMIN);
+			String encrypetedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
+			User newUser = new User(user.getLogin(), encrypetedPassword, user.getRole());
+			
+			userRepository.save(newUser);
 		};
 	}
 
