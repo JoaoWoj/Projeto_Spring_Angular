@@ -1,0 +1,26 @@
+<mat-card class="container">
+  <mat-card-content class="card-login">
+    <mat-card-title>Login</mat-card-title>
+    <form [formGroup]="formLogin">
+      <div class="conteudo-login">
+        <mat-form-field appearance="outline" class="form-field-full">
+          <mat-label>Login</mat-label>
+          <input type="text" matInput placeholder="Login" formControlName="login" #login>
+          <mat-error *ngIf="formLogin.get('login')?.hasError('required') && formLogin.get('login')?.touched">
+            Login é <strong>obrigatório</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field-full">
+          <mat-label>Senha</mat-label>
+          <input type="password" matInput formControlName="password">
+          <mat-error *ngIf="formLogin.get('password')?.invalid && formLogin.get('password')?.touched">Senha é
+            <strong>obrigatória</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </form>
+    <mat-card-actions align="end">
+      <button mat-raised-button color="primary" class="full" align="end" (click)="logar()">Entrar</button>
+    </mat-card-actions>
+  </mat-card-content>
+</mat-card>

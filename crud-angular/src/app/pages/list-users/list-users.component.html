@@ -1,0 +1,80 @@
+<mat-card class="table-card">
+  <mat-toolbar color="primary">Usuários</mat-toolbar>
+
+  <mat-accordion>
+
+    <mat-expansion-panel class="{{panelOpenState ? '' : 'background-color-title'}} expansion-panel" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Filtros
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-card-content>
+        <form [formGroup]="filter" class="min-width">
+          <mat-form-field class="half-width">
+            <mat-label [style.font-size]="'large'">Login</mat-label>
+            <input matInput placeholder="Login" formControlName="login" #login>
+          </mat-form-field>
+
+          <mat-form-field class="half-width">
+            <mat-label>Nível</mat-label>
+            <mat-select formControlName="role" placeholder="Nível" #role>
+              <mat-option value=""></mat-option>
+              <mat-option value="ADMIN">Administrador</mat-option>
+              <mat-option value="USER">Usuário</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </form>
+      </mat-card-content>
+      <mat-card-actions class="action-button-form">
+        <button class="button-form" mat-raised-button (click)="onRefreshFilter()" cdkFocusInitial>Limpar Filtro</button>
+        <button class="button-form" mat-raised-button (click)="onFilter()" color="primary" cdkFocusInitial>Filtrar</button>
+      </mat-card-actions>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <mat-table [dataSource]="users$" class="column-flex mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+      The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Login Column -->
+    <ng-container matColumnDef="login">
+      <mat-header-cell *matHeaderCellDef> Login </mat-header-cell>
+      <mat-cell *matCellDef="let user"> {{ user.login }} </mat-cell>
+    </ng-container>
+
+    <!-- Role Column -->
+    <ng-container matColumnDef="role">
+      <mat-header-cell *matHeaderCellDef class="align-column-center"> Nível </mat-header-cell>
+      <mat-cell *matCellDef="let user" class="align-column-center">
+        @if(user.role == "ADMIN"){
+          <mat-label>Administrador</mat-label>
+        } @else {
+          <mat-label>Usuário</mat-label>
+        }
+      </mat-cell>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="action">
+      <mat-header-cell *matHeaderCellDef class="action-header">
+        <button mat-mini-fab color="accent" aria-label="Adicionar Usuário" (click)="onAdd()" matTooltip="Adicionar Usuário">
+          <mat-icon>add</mat-icon>
+        </button>
+      </mat-header-cell>
+
+      <mat-cell *matCellDef="let user" class="action-column action-button-form">
+
+        <button mat-icon-button color="warn" aria-label="Excluir Usuário" matTooltip="Excluir Usuário"
+          (click)="onDelete(user)">
+          <mat-icon>delete</mat-icon>
+        </button>
+
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</mat-card>

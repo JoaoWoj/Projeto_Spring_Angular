@@ -1,0 +1,41 @@
+<mat-card>
+
+  <mat-toolbar color="primary">Detalhes usuários</mat-toolbar>
+  <mat-card-content>
+    <form [formGroup]="form" class="min-width">
+
+      <mat-form-field class="half-width">
+        <mat-label>Login</mat-label>
+        <input matInput placeholder="Login" formControlName="login" #login>
+        <mat-hint align="end">{{login.value.length}}/20</mat-hint>
+        @if (form.get('login')?.invalid) {
+        <mat-error>{{getErrorMessage("login")}}</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field class="half-width">
+        <mat-label>Senha</mat-label>
+        <input type="password" matInput placeholder="Senha" formControlName="password" #password>
+        <mat-hint align="end">{{password.value.length}}/50</mat-hint>
+        @if (form.get('password')?.invalid) {
+        <mat-error>{{getErrorMessage("password")}}</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field class="half-width">
+        <mat-label>Nível</mat-label>
+        <mat-select formControlName="role" placeholder="Nível" #role>
+          <mat-option value=""></mat-option>
+          <mat-option value="ADMIN">Administrador</mat-option>
+          <mat-option value="USER">Usuário</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </form>
+  </mat-card-content>
+  <mat-card-actions class="action-button-form" >
+    <button class="button-form" mat-raised-button (click)="onCancel()">Cancelar</button>
+    <button class="button-form" mat-raised-button [style.background]="'#4CAF50'" (click)="onSubmit()" cdkFocusInitial>Salvar</button>
+
+  </mat-card-actions>
+</mat-card>
