@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { Book } from '../model/book';
-import { BooksService } from '../services/books.service';
+import { BooksService } from '../../services/books.service';
+import { Book } from '../../interfaces/book';
 
 @Injectable({
   providedIn: 'root'

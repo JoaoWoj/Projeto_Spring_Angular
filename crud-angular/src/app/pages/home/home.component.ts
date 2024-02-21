@@ -4,16 +4,16 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, map } from 'rxjs';
-import { Book } from '../model/book';
-import { ConfirmationDialogComponent } from '../shared/confirmation-dialog/confirmation-dialog.component';
-import { BooksService } from './../services/books.service';
+import { Book } from '../../interfaces/book';
+import { BooksService } from '../../services/books.service';
+import { ConfirmationDialogComponent } from '../compartilhado/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
-  selector: 'app-books',
-  templateUrl: './books.component.html',
-  styleUrl: './books.component.css',
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrl: './home.component.css'
 })
-export class BooksComponent implements OnInit {
+export class HomeComponent implements OnInit {
   panelOpenState = false;
   books$: Observable<Book[]>;
   readonly displayedColumns = [
@@ -174,4 +174,3 @@ export class BooksComponent implements OnInit {
   }
 
 }
-

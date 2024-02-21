@@ -14,7 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.joao.repository.UserRepository;
+import com.joao.repository.AuthRepository;
 
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
@@ -23,14 +23,14 @@ public class SecurityFilter extends OncePerRequestFilter {
     TokenService tokenService;
 	
     @Autowired
-    UserRepository userRepository;
+    AuthRepository authRepository;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         var token = this.recoverToken(request);
         if(token != null){
             var login = tokenService.validateToken(token);
-            UserDetails user = userRepository.findByLogin(login);
+            UserDetails user = authRepository.findByLogin(login);
 
             var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);

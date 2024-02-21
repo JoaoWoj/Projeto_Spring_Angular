@@ -3,15 +3,15 @@ import { Component, OnInit } from '@angular/core';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { BooksService } from '../services/books.service';
-import { Book } from '../model/book';
+import { BooksService } from '../../services/books.service';
+import { Book } from '../../interfaces/book';
 
 @Component({
-  selector: 'app-book-form',
-  templateUrl: './book-form.component.html',
-  styleUrl: './book-form.component.css',
+  selector: 'app-form-book',
+  templateUrl: './form-book.component.html',
+  styleUrl: './form-book.component.css'
 })
-export class BookFormComponent implements OnInit {
+export class FormBookComponent implements OnInit {
   currentRoute = '';
   form = this.formBuilder.group({
     _id: 0,

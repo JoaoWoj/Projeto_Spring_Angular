@@ -28,8 +28,14 @@ public class SecurityConfigurations {
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authorizeHttpRequests(authorize -> authorize
 						.requestMatchers("/h2-console/**").permitAll()
-						.requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-						.requestMatchers(HttpMethod.POST, "/auth/register").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.POST, "api/auth/login").permitAll()
+						.requestMatchers(HttpMethod.POST, "api/auth/register").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.POST, "/api/books").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.PUT, "/api/books/{id}").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.DELETE, "/api/books/{id}").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.PATCH, "/api/books/{id}").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.POST, "/api/users").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.DELETE, "/api/users/{id}").hasRole("ADMIN")
 						.anyRequest().authenticated())
 				.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
 				.build();

@@ -1,0 +1,25 @@
+<p>
+  <mat-toolbar color="primary">
+    <button mat-icon-button (click)="onHome()" matTooltip="Home" class="home-button">
+      <mat-icon>home</mat-icon>
+    </button>
+    @if (!isUserClass) {
+    <span>Lista de Livros</span>
+    } @else {
+    <span>Lista de Usuários</span>
+    }
+    <span class="espacamento-toolbar"></span>
+    @if (isAdmin) {
+    <button mat-icon-button (click)="onCreate()" matTooltip="Adicionar Usuário">
+      <mat-icon>add</mat-icon>
+    </button>
+    }
+    <button mat-icon-button (click)="onLogout()" matTooltip="Sair">
+      <mat-icon>logout</mat-icon>
+    </button>
+  </mat-toolbar>
+</p>
+
+<mat-card-content>
+  <router-outlet></router-outlet>
+</mat-card-content>

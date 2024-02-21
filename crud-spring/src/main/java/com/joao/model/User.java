@@ -5,6 +5,7 @@ import static com.joao.model.enumerators.UserRoleEnum.ADMIN;
 import java.util.Collection;
 import java.util.List;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -33,7 +34,8 @@ public class User implements UserDetails{
 	
 	@NotNull
 	@NotBlank
-	@Column(unique = true, nullable = false)
+	@Length(max = 20)
+	@Column(unique = true, nullable = false, length = 20)
 	private String login;
 	
 	@NotNull
